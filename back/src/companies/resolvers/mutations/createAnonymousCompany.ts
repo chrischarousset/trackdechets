@@ -8,6 +8,12 @@ import { applyAuthStrategies, AuthType } from "../../../auth";
 import { checkIsAdmin } from "../../../common/permissions";
 import prisma from "../../../prisma";
 import { nafCodes } from "../../../common/constants/NAF";
+import {
+  isSiret,
+  isVat,
+  isFRVat
+} from "../../../common/constants/companySearchHelpers";
+import { MISSING_COMPANY_SIRET } from "../../../forms/errors";
 
 const AnonymousCompanyInputSchema: yup.SchemaOf<AnonymousCompanyInput> =
   yup.object({
@@ -21,7 +27,20 @@ const AnonymousCompanyInputSchema: yup.SchemaOf<AnonymousCompanyInput> =
       )
       .required(),
     name: yup.string().required(),
-    siret: yup.string().length(14).required()
+    siret: yup
+      .string()
+      .required(`Anonymous Company : ${MISSING_COMPANY_SIRET}`)
+      .test("is-siret", "siret n'est pas un numéro de SIRET valide", value =>
+        isSiret(value)
+      ),
+    vatNumber: yup
+      .string()
+      .test(
+        "is-vat",
+        "${path} n'est pas un numéro de TVA intracommunautaire valide",
+        value => !value || (isVat(value) && !isFRVat(value))
+      )
+      .nullable(true)
   });
 
 const createAnonymousCompanyResolver: MutationResolvers["createAnonymousCompany"] =

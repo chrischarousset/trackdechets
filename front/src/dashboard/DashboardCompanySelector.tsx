@@ -1,6 +1,7 @@
 import React from "react";
 import { CompanyPrivate } from "generated/graphql/types";
 import { sortCompaniesByName } from "common/helper";
+import { isVat } from "generated/constants/companySearchHelpers";
 
 interface IProps {
   siret: string;
@@ -28,8 +29,8 @@ export default function DashboardCompanySelector({
       onChange={e => handleChange(e.target.value)}
     >
       {sortedCompanies.map(c => (
-        <option key={c.siret} value={c.siret}>
-          {c.givenName || c.name} ({c.siret})
+        <option key={c.siret} value={c.siret} disabled={isVat(c.siret)}>
+          {c.givenName || c.name} ({c.siret ?? c.vatNumber})
         </option>
       ))}
     </select>
