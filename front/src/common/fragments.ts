@@ -189,6 +189,7 @@ export const segmentFragment = gql`
 export const staticFieldsFragment = gql`
   fragment StaticFieldsFragment on Form {
     readableId
+    customId
     createdAt
     status
     stateSummary {
