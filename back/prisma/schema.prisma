@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
 }
 
@@ -921,11 +921,14 @@ model Bsdasri {
   operationSignatoryId                        String?
   destinationOperationSignatureDate           DateTime?               @db.Timestamptz(6)
   destinationOperationSignatureAuthor         String?
-  // associations
-  grouping                                    Bsdasri[]               @relation("BsdasriToBsdasri")
-  groupedIn                                   Bsdasri?                @relation("BsdasriToBsdasri", fields: [groupedInId], references: [id])
+  // grouping
+  grouping                                    Bsdasri[]               @relation("BsdasriGrouping")
+  groupedIn                                   Bsdasri?                @relation("BsdasriGrouping", fields: [groupedInId], references: [id])
   groupedInId                                 String?
-
+  //synthesis
+  synthesizing                                Bsdasri[]               @relation("BsdasriSynthesizing")
+  synthesizedIn                               Bsdasri?                @relation("BsdasriSynthesizing", fields: [synthesizedInId], references: [id])
+  synthesizedInId                             String?
   @@index([emitterCompanySiret], map: "_BsdasriEmitterCompanySiretIdx")
   @@index([transporterCompanySiret], map: "_BsdasriTransporterCompanySiretIdx")
   @@index([destinationCompanySiret], map: "_BsdasriDestinationCompanySiretIdx")
@@ -1255,8 +1258,8 @@ model Bsda {
 }
 
 model Event {
-  id         String   @id @default(cuid())
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
 
   streamId String
   type     String
