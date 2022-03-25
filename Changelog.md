@@ -8,6 +8,9 @@ et le projet suit un schéma de versionning inspiré de [Calendar Versioning](ht
 # [2022.04.1] ~04/04/2022
 
 #### :rocket: Nouvelles fonctionnalités
+
+- Gestion des dasri de synthèse [PR 1287](https://github.com/MTES-MCT/trackdechets/pull/1287)
+
 #### :bug: Corrections de bugs
 #### :boom: Breaking changes
 #### :nail_care: Améliorations
