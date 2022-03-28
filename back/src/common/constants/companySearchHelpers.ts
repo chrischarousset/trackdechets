@@ -35,7 +35,7 @@ export enum CountryCodes {
  * SIRET number validator
  */
 export const isSiret = (clue: string): boolean =>
-  !!clue && !!/^[0-9]{14}$/.test(clue.replace(/\s/g, ""));
+  !!clue && /^[0-9]{14}$/.test(clue.replace(/\s/g, ""));
 
 /**
  * VAT validator
