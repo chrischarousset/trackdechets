@@ -25,7 +25,7 @@ et le projet suit un schéma de versionning inspiré de [Calendar Versioning](ht
 #### :boom: Breaking changes
 #### :nail_care: Améliorations
 
-- Passage à au client ElasticSearch TD interne pour le script add-address-lat-long.ts
+- Passage au client ElasticSearch TD interne pour le script add-address-lat-long.ts
 
 #### :memo: Documentation
 
